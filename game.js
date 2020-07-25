@@ -15,6 +15,7 @@ let $restart = document.getElementById('restart');
 
 var time = 0;
 var scores = 0;
+var missed = 0;
 var ballsAvailables = [];
 var chances = 3;
 
@@ -40,6 +41,7 @@ function draw() {
     printScore();
     printLives();
     drawGoal();
+    printMissedBalls() 
 
 
 
@@ -76,6 +78,8 @@ function draw() {
       {element.draw();
           element.y -= 5;
       });
+
+
 
     /*goal*/
 
@@ -195,13 +199,21 @@ function draw() {
     }
   }
 
+  for (shooting of ballsAvailables) {
+    if (shooting.y == 5) {
+      console.log('missed');
+      missed +=1;
+    }
+  }
 
     /* Game Over */
 
   if (chances === 0) {
     gameover = true;
   }
-
+  if (missed === 10) {
+    gameover = true;
+  }
    /* levels */
 
    if (scores === 5) {
@@ -317,6 +329,11 @@ function printLives() {
   $chances.innerHTML= `${"Chances"}:${chances}`;
 }
 
+function printMissedBalls() {
+  let $chances = document.getElementById('miss');
+  $chances.innerHTML= `${"Missed"}:${missed}`;
+}
+
 function gameOver() {
   if(gameover){
   ctx.restore();
@@ -324,7 +341,7 @@ function gameOver() {
   gameoverlogo.draw();
   $start.className = 'restart';
   $start.innerHTML = 'Restart';
-  $start.style.backgroundColor = 'lightblue'; // to change
+  // $start.style.backgroundColor = 'lightblue'; // to change
   } 
 }
 
