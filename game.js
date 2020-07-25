@@ -78,8 +78,8 @@ function draw() {
       function drawGoal (){
         goal.draw()
         goal.x += 1
-        if (goal.x === w - goal.w){
-        goal.x ---
+        if (goal.x === W - goal.w){
+        goal.x --
         } 
       }
     
