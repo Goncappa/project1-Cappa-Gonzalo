@@ -1,0 +1,49 @@
+body {
+    margin:0;
+    /*background-color: red;*/
+    font-size: 18px;
+    font-family: "Verdana";
+    /* background: url(./images/backgroundsoccer.png);
+    background-repeat: no-repeat;
+    background-size: cover; */
+  }
+
+  
+  
+  body {display:flex; min-height:100vh;}
+  body >div {flex:1;}
+  
+  .game-intro {
+    display:flex; flex-direction:column;
+    justify-content:center; align-items:center;
+  }
+
+  ul {
+    list-style: none;
+  }
+  
+  .logo-img {
+    width: 350px;
+  }
+  
+  body button {
+    font-size: 30px;
+    background-color: green;
+    color: black;
+    padding: 20px 40px;
+    border:black;
+    border-radius: 5px;
+    margin-bottom: 20px;
+  }
+  
+  #game-board {
+    padding: 20px 0px;
+  }
+  #game-board {position:relative;}
+  #game-board canvas {
+    position:absolute; 
+    /* width:100%; height:100%; */
+    border: black;
+    background: green;
+    object-fit:contain;
+  }
