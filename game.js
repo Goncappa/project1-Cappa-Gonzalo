@@ -22,21 +22,22 @@ const H = ctx.canvas.height;
 
 /*functions*/ 
 
+gameOver();
+
 
 function draw() {  
 
     const imgField = new Image();
     imgField.src = "./images/test1.png"; 
     ctx.drawImage(imgField, 0, 0, W, H);
-    // console.log ('i am draw');
 
 
-    // shooting.draw();
     player.draw();
     goal.draw();
     printScore();
-    printLives()
+    printLives();
     drawGoal();
+
 
 
     
@@ -77,10 +78,17 @@ function draw() {
 
       function drawGoal (){
         goal.draw()
-        goal.x += 1
-        if (goal.x === W - goal.w){
-        goal.x --
-        } 
+
+        if (goal.dir === 1 && goal.x > W - goal.w) {
+          goal.dir = -1;
+        }
+        if (goal.dir === -1 && goal.x < 0) {
+          goal.dir = 1;
+        }
+
+        goal.x += goal.dir;
+        
+
       }
     
   
@@ -131,22 +139,25 @@ function draw() {
         if (obstacle.hits(player)) {
           console.log('crashed', defense);
           chances -= 1
+          player.x = (W/12) * 11;
+          player.y = H - 150;
         }
       }
 
-  for (obstacle of cone) {
-    if (obstacle.hits(player)) {
-      console.log('crashed', obstacle);
-      gameover = true;
-    }
-  }
+
+  // for (obstacle of cone) {
+  //   if (obstacle.hits(player)) {
+  //     console.log('crashed', obstacle);
+  //     gameover = true;
+  //   }
+  // }
     
-  for (obstacle of cone) {
-    if (obstacle.hits(player)) {
-      console.log('crashed', obstacle);
-      gameover = true;
-    }
-  }
+  // for (obstacle of cone) {
+  //   if (obstacle.hits(player)) {
+  //     console.log('crashed', obstacle);
+  //     gameover = true;
+  //   }
+  // }
 
   for (newBall of ball1) {
     if (newBall.hits(player)) {
@@ -181,7 +192,12 @@ function draw() {
     }
   }
 
-  
+
+    /* Game Over */
+
+  if (chances === 0) {
+    gameover = true;
+  }
    
 
 }
@@ -196,7 +212,12 @@ function animLoop() {
     draw();
     if (!gameover) {
       raf = requestAnimationFrame(animLoop);
+    } if (gameover) {
+      draw();
+      gameOver();
+
     }
+
   }
   
   document.onkeydown = function (e) {
@@ -214,10 +235,6 @@ function animLoop() {
     }
 
 
-    // function shoot () {
-    //   return shooting.draw()
-    // }
-
   function startGame() {
     if (raf) {
       cancelAnimationFrame(raf);
@@ -226,8 +243,11 @@ function animLoop() {
     player = new Player();
     goal = new Goal();
     shooting = new ShootingBall();
+    gameoverlogo = new GameoverLogo();
     animLoop();
     draw();
+
+
 
   }
 
@@ -242,11 +262,13 @@ function animLoop() {
   
   startGame();
   
-  if (gameover = true) {
-    alert("game over")
-    ctx.fillText("Game Over")
-    startGame();
-}
+//   if (gameover === true) {
+//     alert("game over")
+//     ctx.fillText("Game Over", W/2, H/2, 150)
+//     startGame();
+//     console.log("looser")
+// }
+
 
 function printScore() {
   let $score = document.getElementById('score');
@@ -258,3 +280,22 @@ function printLives() {
   $chances.innerHTML= `${"Chances"}:${chances}`;
 }
 
+function gameOver() {
+  if(gameover){
+  ctx.save();
+  ctx.restore();
+  ctx.fillText("Game over", 5, 15,);
+  console.log("LOOSER");
+  gameoverlogo.draw();
+  } 
+}
+
+
+// function printRestart() {
+//   let $restart = document.getElementById('start-button');
+//   if (gameover === true){
+//   $restart.innerHTML= `${restart}`;
+//   }
+// }
+
+// printRestart();

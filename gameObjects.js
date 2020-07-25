@@ -7,7 +7,7 @@ let Player = class {
         this.img = img;
         const imgRatio = img.naturalWidth/img.naturalHeight;
   
-        this.x = (W/2);
+        this.x = (W/12) * 11;
         this.y = H - 150;
         this.w = 48;
         this.h = this.w/imgRatio;
@@ -27,7 +27,7 @@ let Player = class {
         }
       }
       moveRight() {
-        if (this.x <= W - (W/6)){
+        if (this.x <= W - (W/6) - (W/12)){
         this.x += (W/12);
         }
       }
@@ -117,8 +117,9 @@ let Defense = class {
         // this.y = 14;
         this.x = W/2 - (W/12);
         this.y = 45;
-        this.w = 90;
+        this.w = 135;
         this.h = 40;
+        this.dir = 1;
       }
       img.src = "images/but.png";
       
@@ -209,3 +210,24 @@ let Defense = class {
 }
 }
 
+let GameoverLogo = class {
+  constructor() {
+    const img = document.createElement('img');
+    img.onload = () => {
+      this.img = img;
+      const imgRatio = img.naturalWidth/img.naturalHeight;
+
+      this.x = 90
+      this.y = (H/2);
+      this.w = 300;
+      this.h = 300;
+    }
+    img.src = "images/GameOver.png";
+  }
+
+  draw() {
+      if (!this.img) return; 
+      ctx.drawImage(this.img, this.x, this.y, this.w, this.h);
+    }
+
+  }
