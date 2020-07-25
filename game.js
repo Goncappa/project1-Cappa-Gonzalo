@@ -10,6 +10,9 @@ var goal;
 var shoot;
 var gameover = false;
 
+let $start = document.getElementById("start-button");
+let $restart = document.getElementById('restart');
+
 var time = 0;
 var scores = 0;
 var ballsAvailables = [];
@@ -198,6 +201,21 @@ function draw() {
   if (chances === 0) {
     gameover = true;
   }
+
+   /* levels */
+
+   if (scores === 5) {
+     goal.w = 180
+   } if (scores === 10) {
+    goal.w = 135
+  } if (scores === 15) {
+    goal.w = 90
+  } if (scores === 25) {
+    goal.w = 45
+  }
+
+
+
    
 
 }
@@ -255,10 +273,29 @@ function animLoop() {
 //     return startGame();
 //   }
   
-  document.getElementById("start-button").onclick = function() {
-    startGame();
 
+
+$start.onclick = function() {
+    startGame();
+    // $start.innerHTML = 'STOP';
   };
+
+  $restart.onclick = function() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+  
+    chances += 3;
+    scores *= 0;
+    ctx.clear();
+    console.log("restart clicked")
+    restart();
+    // scores = 0;
+    // chances = 3;
+    // ctx.restore();
+    // animLoop();
+    // startGame();
+  
+  };
+
   
   startGame();
   
@@ -282,20 +319,23 @@ function printLives() {
 
 function gameOver() {
   if(gameover){
-  ctx.save();
   ctx.restore();
-  ctx.fillText("Game over", 5, 15,);
   console.log("LOOSER");
   gameoverlogo.draw();
+  $start.className = 'restart';
+  $start.innerHTML = 'Restart';
+  $start.style.backgroundColor = 'lightblue'; // to change
   } 
 }
 
 
-// function printRestart() {
-//   let $restart = document.getElementById('start-button');
-//   if (gameover === true){
-//   $restart.innerHTML= `${restart}`;
-//   }
-// }
+function restart() {
+    player = new Player();
+    goal = new Goal();
+    shooting = new ShootingBall();
+    gameoverlogo = new GameoverLogo();
+    animLoop();
+    draw();
+  }
 
-// printRestart();
+

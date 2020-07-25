@@ -113,11 +113,9 @@ let Defense = class {
         this.img = img;
         const imgRatio = img.naturalWidth/img.naturalHeight;
   
-        // this.x = 255;
-        // this.y = 14;
         this.x = W/2 - (W/12);
         this.y = 45;
-        this.w = 135;
+        this.w = 225;
         this.h = 40;
         this.dir = 1;
       }
@@ -217,13 +215,16 @@ let GameoverLogo = class {
       this.img = img;
       const imgRatio = img.naturalWidth/img.naturalHeight;
 
-      this.x = 90
-      this.y = (H/2);
       this.w = 300;
       this.h = 300;
+      this.x = (W - this.w) / 2
+      this.y = (H/2) - this.h / 2;
+
     }
     img.src = "images/GameOver.png";
   }
+
+  
 
   draw() {
       if (!this.img) return; 
