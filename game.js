@@ -1,6 +1,7 @@
 /*variables*/
 
 var player;
+// var sprite;
 var ball1 = [];
 var ball2 = [];
 var defense = [];
@@ -34,8 +35,9 @@ function draw() {
     const imgField = new Image();
     imgField.src = "./images/test1.png"; 
     ctx.drawImage(imgField, 0, 0, W, H);
+    // canvas.style.opacity = 0.8;
 
-
+    // sprite.draw();
     player.draw();
     goal.draw();
     printScore();
@@ -258,7 +260,7 @@ function animLoop() {
             case 37: player.moveLeft();  console.log('left',  player); break;
             case 39: player.moveRight(); console.log('right', player); break;
             case 40: player.moveBack(); console.log('back', player); break;
-            case 38: player.moveForward(); console.log('up', player); break;
+            case 38: player.moveUp(); console.log('up', player); break;
             // case 13: restart(); console.log("Game restarted"); break;
 
         }
@@ -270,6 +272,7 @@ function animLoop() {
       cancelAnimationFrame(raf);
       console.log('frame started')
     }
+    // sprite = new Sprite();
     player = new Player();
     goal = new Goal();
     shooting = new ShootingBall();
@@ -295,9 +298,6 @@ $start.onclick = function() {
   $restart.onclick = function() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
   
-    chances += 3;
-    scores *= 0;
-    ctx.clear();
     console.log("restart clicked")
     restart();
     // scores = 0;
@@ -311,12 +311,6 @@ $start.onclick = function() {
   
   startGame();
   
-//   if (gameover === true) {
-//     alert("game over")
-//     ctx.fillText("Game Over", W/2, H/2, 150)
-//     startGame();
-//     console.log("looser")
-// }
 
 
 function printScore() {
@@ -337,10 +331,15 @@ function printMissedBalls() {
 function gameOver() {
   if(gameover){
   ctx.restore();
-  console.log("LOOSER");
   gameoverlogo.draw();
   $start.className = 'restart';
   $start.innerHTML = 'Restart';
+  scores = 0; 
+  missed = 0;
+  chances = 3;
+  console.log("LOOSER");
+  // ctx.clearRect(0, 0, canvas.width, canvas.height);
+
   // $start.style.backgroundColor = 'lightblue'; // to change
   } 
 }

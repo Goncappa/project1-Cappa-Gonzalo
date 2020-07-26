@@ -38,7 +38,7 @@ let Player = class {
         }
       }
 
-      moveForward() {
+      moveUp() {
         if (this.y >= 70) {
         this.y -= 30;
         }
@@ -119,7 +119,7 @@ let Defense = class {
         this.h = 40;
         this.dir = 1;
       }
-      img.src = "images/but.png";
+      img.src = "images/goal.png";
       
     }
   
@@ -232,3 +232,108 @@ let GameoverLogo = class {
     }
 
   }
+
+
+
+    /*S P R I T E*/
+
+ 
+
+  //   let Sprite = class {
+  //     constructor() {
+  //       const img = document.createElement('img');
+  //       img.onload = () => {
+  //       this.img = img;
+  //       const imgRatio = img.naturalWidth/img.naturalHeight;
+  //       this.x = (W/12) * 11;
+  //       this.y = H - 150;
+  //       this.w = 48;
+  //       this.h = this.w/imgRatio;
+  //       this.spriteWidth = 210; 
+  //       this.spriteHeight = 420; 
+  //       this.rows = 4; 
+  //       this.cols = 3;         
+  //       this.trackUp = 0;
+  //       this.trackRight = 1; 
+  //       this.trackDown = 2;
+  //       this.trackLeft = 3;
+  //       this.sWidth = spriteWidth/cols; 
+  //       this.sHeight = spriteHeight/rows; 
+  //       this.curFrame = 4; 
+  //       this.frameCount = 3; 
+  //       this.srcX; 
+  //       this.srcY; 
+  //       this.left = false; 
+  //       this.right = false;
+  //       this.up = false;
+  //       this.down = false;
+
+  //       }
+  //       img.src = "https://i.pinimg.com/564x/05/a9/eb/05a9eb42c8722be8d276efcf6145cfdf.jpg";
+  //     }
+  
+
+
+  //     updateFrame(){
+	// 			this.curFrame = ++this.curFrame % this.frameCount; 				
+	// 			this.srcX = this.curFrame * this.sWidth; 
+	// 			ctx.clearRect(this.x,this.y,this.sWidth,this.sHeight);	
+				
+	// 			if(this.left && this.x >= (W/11)){
+  //         this.srcY = this.trackLeft * this.sHeight; 
+  //         this.x -= (W/12);
+  //       }
+	// 			if(this.right && this.x <= W - (W/6) - (W/12)){
+  //         srcY = trackRight * sHeight; 
+  //         this.x += (W/12);
+  //       }
+        
+  //       if(this.up && this.y >= 70){
+  //         this.srcY = this.trackUp * this.sHeight; 
+  //         this.y -= 30;
+  //       }
+
+  //       if(this.down && this.y <= H - 40){
+  //         this.srcY = this.trackDown * this.sHeight; 
+  //         this.y += 30;
+  //       }
+
+	// 		}
+			
+	// 		draw(){
+  //       this.updateFrame();
+  //       ctx.drawImage(this.img,this.srcX,this.srcY,this.sHidth,this.sHeight,this.x,this.y,this.sWidth,this.sHeight);
+  //     }
+			
+			
+	// 		moveLeft(){
+	// 			this.left = true;
+  //       this.right = false;
+  //       this.up = false;
+  //       this.down = false;
+	// 		}
+            
+	// 		moveRight(){
+	// 			this.left = false; 
+  //       this.right = true;
+  //       this.up = false;
+  //       this.down = false;
+  //     }
+      
+  //     moveUp(){
+	// 			this.left = false; 
+  //       this.right = false;
+  //       this.up = true;
+  //       this.down = false;
+  //     }
+      
+  //     moveBack(){
+	// 			this.left = false; 
+  //       this.right = false;
+  //       this.up = false;
+  //       this.down = true;
+	// 		}
+					
+  //  }
+      
+
