@@ -1,7 +1,7 @@
 /*variables*/
 
 var player;
-// var sprite;
+var sprite; // Sprite
 var ball1 = [];
 var ball2 = [];
 var defense = [];
@@ -12,7 +12,7 @@ var shoot;
 var gameover = false;
 
 let $start = document.getElementById("start-button");
-let $restart = document.getElementById('restart');
+let $restart = document.querySelector('Restart');
 
 var time = 0;
 var scores = 0;
@@ -35,9 +35,7 @@ function draw() {
     const imgField = new Image();
     imgField.src = "./images/test1.png"; 
     ctx.drawImage(imgField, 0, 0, W, H);
-    // canvas.style.opacity = 0.8;
-
-    // sprite.draw();
+    sprite.draw();
     player.draw();
     goal.draw();
     printScore();
@@ -244,10 +242,10 @@ function animLoop() {
     draw();
     if (!gameover) {
       raf = requestAnimationFrame(animLoop);
+
     } if (gameover) {
       draw();
       gameOver();
-
     }
 
   }
@@ -257,10 +255,10 @@ function animLoop() {
     shooting = new ShootingBall();
         switch (e.keyCode) {
             // case 32: shoot(); ballsAvailables.pop(); console.log('space'); break;
-            case 37: player.moveLeft();  console.log('left',  player); break;
-            case 39: player.moveRight(); console.log('right', player); break;
-            case 40: player.moveBack(); console.log('back', player); break;
-            case 38: player.moveUp(); console.log('up', player); break;
+            case 37: sprite.moveLeft();  console.log('left',  player); break;
+            case 39: sprite.moveRight(); console.log('right', player); break;
+            case 40: sprite.moveDown(); console.log('back', player); break;
+            case 38: sprite.moveUp(); console.log('up', player); break;
             // case 13: restart(); console.log("Game restarted"); break;
 
         }
@@ -269,14 +267,16 @@ function animLoop() {
 
   function startGame() {
     if (raf) {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
       cancelAnimationFrame(raf);
       console.log('frame started')
     }
-    // sprite = new Sprite();
+    shooting = new ShootingBall();
+    sprite = new Character(ctx);
     player = new Player();
     goal = new Goal();
-    shooting = new ShootingBall();
     gameoverlogo = new GameoverLogo();
+    sprite.updateFrame()
     animLoop();
     draw();
 
@@ -291,21 +291,15 @@ function animLoop() {
 
 
 $start.onclick = function() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
     startGame();
     // $start.innerHTML = 'STOP';
   };
 
   $restart.onclick = function() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-  
+    window.location.reload();
     console.log("restart clicked")
     restart();
-    // scores = 0;
-    // chances = 3;
-    // ctx.restore();
-    // animLoop();
-    // startGame();
-  
   };
 
   
@@ -332,7 +326,6 @@ function gameOver() {
   if(gameover){
   ctx.restore();
   gameoverlogo.draw();
-  $start.className = 'restart';
   $start.innerHTML = 'Restart';
   scores = 0; 
   missed = 0;
@@ -351,7 +344,7 @@ function restart() {
     shooting = new ShootingBall();
     gameoverlogo = new GameoverLogo();
     animLoop();
-    draw();
+    // draw();
   }
 
 

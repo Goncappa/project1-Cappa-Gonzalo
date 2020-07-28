@@ -32,7 +32,7 @@ let Player = class {
         }
       }
 
-      moveBack() {
+      moveDown() {
         if (this.y <= H - 40){
         this.y += 30;
         }
@@ -114,7 +114,7 @@ let Defense = class {
         const imgRatio = img.naturalWidth/img.naturalHeight;
   
         this.x = W/2 - (W/12);
-        this.y = 45;
+        this.y = 50;
         this.w = 225;
         this.h = 40;
         this.dir = 1;
@@ -239,30 +239,30 @@ let GameoverLogo = class {
 
  
 
-  //   let Sprite = class {
+  //   let Character = class {
   //     constructor() {
-  //       const img = document.createElement('img');
-  //       img.onload = () => {
-  //       this.img = img;
-  //       const imgRatio = img.naturalWidth/img.naturalHeight;
-  //       this.x = (W/12) * 11;
-  //       this.y = H - 150;
-  //       this.w = 48;
-  //       this.h = this.w/imgRatio;
-  //       this.spriteWidth = 210; 
-  //       this.spriteHeight = 420; 
-  //       this.rows = 4; 
-  //       this.cols = 3;         
-  //       this.trackUp = 0;
-  //       this.trackRight = 1; 
-  //       this.trackDown = 2;
-  //       this.trackLeft = 3;
-  //       this.sWidth = spriteWidth/cols; 
-  //       this.sHeight = spriteHeight/rows; 
-  //       this.curFrame = 4; 
-  //       this.frameCount = 3; 
-  //       this.srcX; 
-  //       this.srcY; 
+        // const img = document.createElement('img');
+        // img.onload = () => {
+        // this.img = img;
+        // const imgRatio = img.naturalWidth/img.naturalHeight;
+        // this.x = (W/12) * 11;
+        // this.y = H - 150;
+        // this.w = 48;
+        // this.h = this.w/imgRatio;
+        // this.spriteWidth = 210; 
+        // this.spriteHeight = 420; 
+        // this.rows = 4; 
+        // this.cols = 3;         
+        // this.trackUp = 0;
+        // this.trackRight = 1; 
+        // this.trackDown = 2;
+        // this.trackLeft = 3;
+        // this.sWidth = spriteWidth/cols; 
+        // this.sHeight = spriteHeight/rows; 
+        // this.curFrame = 4; 
+        // this.frameCount = 3; 
+        // this.srcX; 
+        // this.srcY; 
   //       this.left = false; 
   //       this.right = false;
   //       this.up = false;
@@ -300,7 +300,7 @@ let GameoverLogo = class {
 
 	// 		}
 			
-	// 		draw(){
+	// 		draw(x,y){
   //       this.updateFrame();
   //       ctx.drawImage(this.img,this.srcX,this.srcY,this.sHidth,this.sHeight,this.x,this.y,this.sWidth,this.sHeight);
   //     }

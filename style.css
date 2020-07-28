@@ -3,9 +3,10 @@ body {
     /*background-color: red;*/
     font-size: 18px;
     font-family: "Verdana";
-    background: url(./images/image1.png);
+    background-color: #131A13;
+    /* background: url(./images/image1.png);
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: cover; */
   }
 
   
@@ -15,38 +16,48 @@ body {
     min-height:100vh;
   }
 
-  body >div {
+  body > div {
     flex:1;
   }
   
   .game-intro {
     display:flex; 
     flex-direction:column;
-    justify-content:center; 
+    /* justify-content:center;  */
+    /* justify-content: space-between; */
     align-items:center;
   }
 
   ul {
     list-style: none;
-    border: 10px  white;
-  }
-
-  ul, p {
-    color: white;
+    border: dashed white;
+    align-self: flex-end;
+    align-self: flex-end;
+    margin-right: 40px;
+    color: #57C4DE;
+    font-size: 22px;
+    padding: 20px 40px;
   }
   
   .logo-img {
     width: 200px;
+    margin-top: 130px;
   }
   
   body button {
     font-size: 30px;
     background-color: transparent;
-    color: white;
+    color: #57C4DE;
     padding: 20px 40px;
-    border:green solid;
-    border-radius: 5px;
-    margin-bottom: 20px;
+    /* border:green solid; */
+    background-color: black;
+    border-radius: 50px;
+    border-color: black;
+  }
+
+  body button:hover{
+    border-color: black;
+    background-color: rgb(41, 46, 46);
   }
   
   #game-board {
