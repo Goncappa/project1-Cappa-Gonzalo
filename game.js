@@ -1,7 +1,6 @@
 /*variables*/
 
 var player;
-var sprite; // Sprite
 var ball1 = [];
 var ball2 = [];
 var defense = [];
@@ -10,15 +9,16 @@ var barrier;
 var goal;
 var shoot;
 var gameover = false;
+var winner = false;
 
 let $start = document.getElementById("start-button");
 let $restart = document.querySelector('Restart');
 
-var time = 0;
 var scores = 0;
 var missed = 0;
 var ballsAvailables = [];
 var chances = 3;
+
 
 
 const ctx = document.querySelector('canvas').getContext('2d');
@@ -35,14 +35,13 @@ function draw() {
     const imgField = new Image();
     imgField.src = "./images/test1.png"; 
     ctx.drawImage(imgField, 0, 0, W, H);
-    sprite.draw();
     player.draw();
     goal.draw();
     printScore();
     printLives();
     drawGoal();
     printMissedBalls() 
-
+    win();
 
 
     
@@ -98,22 +97,7 @@ function draw() {
 
       }
     
-  
-    /*cones*/
-     
-    // function addCone(){
-    //   while (cone.length < 8){
-    //   let obstacle = new Cone();
-    //   cone.push(obstacle)
-    //   }
-    // }
-    // addCone()
-
-    cone.forEach(element => {
-        element.draw();
-      });
-
-        /*cones*/
+  /*balls*/
      
     function addBall1(){
       while (ball1.length < 1){
@@ -151,26 +135,13 @@ function draw() {
         }
       }
 
-
-  // for (obstacle of cone) {
-  //   if (obstacle.hits(player)) {
-  //     console.log('crashed', obstacle);
-  //     gameover = true;
-  //   }
-  // }
-    
-  // for (obstacle of cone) {
-  //   if (obstacle.hits(player)) {
-  //     console.log('crashed', obstacle);
-  //     gameover = true;
-  //   }
-  // }
-
   for (newBall of ball1) {
     if (newBall.hits(player)) {
       console.log('ball +1', obstacle);
       ballsAvailables.push(shooting);
       ball1.splice(0,1)
+      player.dir = 'up';
+
     }
   }
   for (newBall of ball2) {
@@ -178,24 +149,21 @@ function draw() {
       console.log('ball2 +1', obstacle);
       ballsAvailables.push(shooting);
       ball2.pop()
+      player.dir = 'up';
+
  
     }
   }
 
-  for (newBall of ball2) {
-    if (newBall.hits(player)) {
-      console.log('ball2 +1', obstacle);
-      ballsAvailables.push(shooting);
-      ball2.pop()
-    }
-  }
 
   for (shooting of ballsAvailables) {
     if (shooting.hitsGoal(goal)) {
       console.log('goooooal', goal);
-      ballsAvailables.pop();
       scores +=1;
       console.log(scores);
+      goool.draw();
+      ballsAvailables.pop();
+
     }
   }
 
@@ -211,8 +179,12 @@ function draw() {
   if (chances === 0) {
     gameover = true;
   }
-  if (missed === 10) {
+  if (missed === 8) {
     gameover = true;
+  }
+
+  if (scores === 25) {
+    winner = true;
   }
    /* levels */
 
@@ -222,31 +194,25 @@ function draw() {
     goal.w = 135
   } if (scores === 15) {
     goal.w = 90
-  } if (scores === 25) {
+  } if (scores === 20) {
     goal.w = 45
   }
-
-
-
-   
-
 }
 
   /* --------------------------------------------------------------- */
  
 
-  var raf;
-  var frames = 0;
+var raf;
+var frames = 0;
 function animLoop() {
     frames++;
     draw();
-    if (!gameover) {
+    if (!gameover){
       raf = requestAnimationFrame(animLoop);
-
     } if (gameover) {
       draw();
       gameOver();
-    }
+    } 
 
   }
   
@@ -254,11 +220,10 @@ function animLoop() {
     if (!player) return; 
     shooting = new ShootingBall();
         switch (e.keyCode) {
-            // case 32: shoot(); ballsAvailables.pop(); console.log('space'); break;
-            case 37: sprite.moveLeft();  console.log('left',  player); break;
-            case 39: sprite.moveRight(); console.log('right', player); break;
-            case 40: sprite.moveDown(); console.log('back', player); break;
-            case 38: sprite.moveUp(); console.log('up', player); break;
+            case 37: player.moveLeft();  console.log('left',  player); break;
+            case 39: player.moveRight(); console.log('right', player); break;
+            case 40: player.moveDown(); console.log('back', player); break;
+            case 38: player.moveUp(); console.log('up', player); break;
             // case 13: restart(); console.log("Game restarted"); break;
 
         }
@@ -272,79 +237,68 @@ function animLoop() {
       console.log('frame started')
     }
     shooting = new ShootingBall();
-    sprite = new Character(ctx);
-    player = new Player();
+    player = new Character(ctx);
     goal = new Goal();
     gameoverlogo = new GameoverLogo();
-    sprite.updateFrame()
+    goool = new Gol();
+    winnerLogo = new WinnerLogo();
     animLoop();
     draw();
-
-
-
+    scores = 0; 
+    missed = 0;
+    chances = 3;
   }
 
-//   function restart() {
-//     return startGame();
-//   }
   
-
-
 $start.onclick = function() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     startGame();
-    // $start.innerHTML = 'STOP';
+    $start.innerHTML = 'RESTART';
   };
 
-  $restart.onclick = function() {
-    window.location.reload();
-    console.log("restart clicked")
-    restart();
-  };
-
-  
-  startGame();
-  
-
+// $restart.onclick = function() {
+//     window.location.reload();
+//     console.log("restart clicked")
+//     restart();
+//   };
 
 function printScore() {
   let $score = document.getElementById('score');
-  $score.innerHTML= `${"Score"}:${scores}`;
+  $score.innerHTML= `${"SCORE"}:${scores}`;
 }
 
 function printLives() {
   let $chances = document.getElementById('chances');
-  $chances.innerHTML= `${"Chances"}:${chances}`;
+  $chances.innerHTML= `${"CHANCES"}:${chances}`;
+  if (chances === 1) {
+    $chances.style.color = 'red';
+  }
 }
 
 function printMissedBalls() {
-  let $chances = document.getElementById('miss');
-  $chances.innerHTML= `${"Missed"}:${missed}`;
+  let $miss = document.getElementById('miss');
+  $miss.innerHTML= `${"MISSED"}:${missed}`;
+  if (missed === 7) {
+    $miss.style.color = 'red';
+  }
 }
 
 function gameOver() {
   if(gameover){
   ctx.restore();
   gameoverlogo.draw();
-  $start.innerHTML = 'Restart';
-  scores = 0; 
-  missed = 0;
-  chances = 3;
+  $start.innerHTML = 'RESTART';
   console.log("LOOSER");
-  // ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-  // $start.style.backgroundColor = 'lightblue'; // to change
   } 
 }
 
-
-function restart() {
-    player = new Player();
-    goal = new Goal();
-    shooting = new ShootingBall();
-    gameoverlogo = new GameoverLogo();
-    animLoop();
-    // draw();
+function win () {
+  if(winner === true) {
+    ctx.restore();
+    winnerLogo.draw();
+    console.log(winner)
   }
+}
+
 
 

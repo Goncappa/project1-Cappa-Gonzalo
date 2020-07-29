@@ -1,49 +1,4 @@
-  /*player*/
 
-let Player = class {
-    constructor() {
-      const img = document.createElement('img');
-      img.onload = () => {
-        this.img = img;
-        const imgRatio = img.naturalWidth/img.naturalHeight;
-  
-        this.x = (W/12) * 11;
-        this.y = H - 150;
-        this.w = 48;
-        this.h = this.w/imgRatio;
-        this.border = 'black';
-      }
-      img.src = "images/player.png";
-    }
-
-    draw() {
-        if (!this.img) return; 
-        ctx.drawImage(this.img, this.x, this.y, this.w, this.h);
-      }
-    
-      moveLeft() {
-        if(this.x >= (W/11)){
-          this.x -= (W/12);
-        }
-      }
-      moveRight() {
-        if (this.x <= W - (W/6) - (W/12)){
-        this.x += (W/12);
-        }
-      }
-
-      moveDown() {
-        if (this.y <= H - 40){
-        this.y += 30;
-        }
-      }
-
-      moveUp() {
-        if (this.y >= 70) {
-        this.y -= 30;
-        }
-      }
-    }
 
 let ShootingBall = class {
   constructor() {
@@ -82,7 +37,7 @@ let Defense = class {
       this.img = img;
       const imgRatio = img.naturalWidth/img.naturalHeight;
 
-      this.x = ((W /12) * (Math.floor(Math.random()* 10) + 1)) //- (W/12);
+      this.x = ((W/12) * (Math.floor(Math.random()* 10) + 1)) //- (W/12);
       this.y = 0;
       this.w = 48;
       this.h = 30;
@@ -208,6 +163,8 @@ let Defense = class {
 }
 }
 
+/*Game Over */
+
 let GameoverLogo = class {
   constructor() {
     const img = document.createElement('img');
@@ -233,107 +190,106 @@ let GameoverLogo = class {
 
   }
 
+  /*WIN */
 
+let WinnerLogo = class {
+  constructor() {
+    const img = document.createElement('img');
+    img.onload = () => {
+      this.img = img;
+      const imgRatio = img.naturalWidth/img.naturalHeight;
 
-    /*S P R I T E*/
+      this.w = 200;
+      this.h = 400;
+      this.x = (W - this.w) / 2
+      this.y = (H/2) - this.h / 2;
 
- 
+    }
+    img.src = "images/cup.png";
+  }
 
-  //   let Character = class {
-  //     constructor() {
-        // const img = document.createElement('img');
-        // img.onload = () => {
-        // this.img = img;
-        // const imgRatio = img.naturalWidth/img.naturalHeight;
-        // this.x = (W/12) * 11;
-        // this.y = H - 150;
-        // this.w = 48;
-        // this.h = this.w/imgRatio;
-        // this.spriteWidth = 210; 
-        // this.spriteHeight = 420; 
-        // this.rows = 4; 
-        // this.cols = 3;         
-        // this.trackUp = 0;
-        // this.trackRight = 1; 
-        // this.trackDown = 2;
-        // this.trackLeft = 3;
-        // this.sWidth = spriteWidth/cols; 
-        // this.sHeight = spriteHeight/rows; 
-        // this.curFrame = 4; 
-        // this.frameCount = 3; 
-        // this.srcX; 
-        // this.srcY; 
-  //       this.left = false; 
-  //       this.right = false;
-  //       this.up = false;
-  //       this.down = false;
-
-  //       }
-  //       img.src = "https://i.pinimg.com/564x/05/a9/eb/05a9eb42c8722be8d276efcf6145cfdf.jpg";
-  //     }
   
 
+  draw() {
+      if (!this.img) return; 
+      ctx.drawImage(this.img, this.x, this.y, this.w, this.h);
+    }
 
-  //     updateFrame(){
-	// 			this.curFrame = ++this.curFrame % this.frameCount; 				
-	// 			this.srcX = this.curFrame * this.sWidth; 
-	// 			ctx.clearRect(this.x,this.y,this.sWidth,this.sHeight);	
-				
-	// 			if(this.left && this.x >= (W/11)){
-  //         this.srcY = this.trackLeft * this.sHeight; 
-  //         this.x -= (W/12);
-  //       }
-	// 			if(this.right && this.x <= W - (W/6) - (W/12)){
-  //         srcY = trackRight * sHeight; 
-  //         this.x += (W/12);
-  //       }
-        
-  //       if(this.up && this.y >= 70){
-  //         this.srcY = this.trackUp * this.sHeight; 
-  //         this.y -= 30;
-  //       }
+  }
 
-  //       if(this.down && this.y <= H - 40){
-  //         this.srcY = this.trackDown * this.sHeight; 
-  //         this.y += 30;
-  //       }
+  /*Gol*/
 
-	// 		}
-			
-	// 		draw(x,y){
-  //       this.updateFrame();
-  //       ctx.drawImage(this.img,this.srcX,this.srcY,this.sHidth,this.sHeight,this.x,this.y,this.sWidth,this.sHeight);
-  //     }
-			
-			
-	// 		moveLeft(){
-	// 			this.left = true;
-  //       this.right = false;
-  //       this.up = false;
-  //       this.down = false;
-	// 		}
-            
-	// 		moveRight(){
-	// 			this.left = false; 
-  //       this.right = true;
-  //       this.up = false;
-  //       this.down = false;
-  //     }
+  let Gol= class {
+    constructor() {
+      const img = document.createElement('img');
+      img.onload = () => {
+        this.img = img;
+        const imgRatio = img.naturalWidth/img.naturalHeight;
+  
+        this.w = 300;
+        this.h = 300;
+        this.x = (W - this.w) / 2
+        this.y = (H/2) - this.h / 2;
+  
+      }
+      img.src = "images/logo.png";
+    }
+  
+    
+  
+    draw() {
+        if (!this.img) return; 
+        ctx.drawImage(this.img, this.x, this.y, this.w, this.h);
       
-  //     moveUp(){
-	// 			this.left = false; 
-  //       this.right = false;
-  //       this.up = true;
-  //       this.down = false;
-  //     }
-      
-  //     moveBack(){
-	// 			this.left = false; 
-  //       this.right = false;
-  //       this.up = false;
-  //       this.down = true;
-	// 		}
-					
-  //  }
-      
+      }
+  
+    }
 
+
+
+//       /*player*/
+
+// let Player = class {
+//   constructor() {
+//     const img = document.createElement('img');
+//     img.onload = () => {
+//       this.img = img;
+//       const imgRatio = img.naturalWidth/img.naturalHeight;
+
+//       this.x = (W/12) * 11;
+//       this.y = H - 150;
+//       this.w = 48;
+//       this.h = this.w/imgRatio;
+//       this.border = 'black';
+//     }
+//     img.src = "images/player.png";
+//   }
+
+//   draw() {
+//       if (!this.img) return; 
+//       ctx.drawImage(this.img, this.x, this.y, this.w, this.h);
+//     }
+  
+//     moveLeft() {
+//       if(this.x >= (W/11)){
+//         this.x -= (W/12);
+//       }
+//     }
+//     moveRight() {
+//       if (this.x <= W - (W/6) - (W/12)){
+//       this.x += (W/12);
+//       }
+//     }
+
+//     moveDown() {
+//       if (this.y <= H - 40){
+//       this.y += 30;
+//       }
+//     }
+
+//     moveUp() {
+//       if (this.y >= 70) {
+//       this.y -= 30;
+//       }
+//     }
+//   }
