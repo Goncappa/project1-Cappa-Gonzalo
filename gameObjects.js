@@ -232,7 +232,7 @@ let WinnerLogo = class {
         this.y = (H/2) - this.h / 2;
   
       }
-      img.src = "images/logo.png";
+      img.src = "images/logo2.png";
     }
   
     
