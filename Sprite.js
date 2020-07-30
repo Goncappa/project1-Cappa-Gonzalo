@@ -25,7 +25,7 @@ let Character = class {
         this.frameCount = 3;
         this.dir = 'left';
       }
-      img.src = "images/Miniplayer1.png";
+      img.src = "images/miniplayer1.png";
     }
                       
     // ctx.style
