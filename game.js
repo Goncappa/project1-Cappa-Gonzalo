@@ -6,7 +6,7 @@ var ball2 = [];
 var defense = [];
 var barrier;
 var goal;
-var shoot;
+var shot;
 var gameover = false;
 var winner = false;
 
@@ -52,6 +52,10 @@ function draw() {
         const obstacle = new Character2(ctx)
         defense.push(obstacle) 
       }
+      // if (frames % 100 === 0) {
+      //   const obstacle = new Character2(ctx)
+      //   defense.push(obstacle) 
+      // }
     if (frames % 50 === 0) {
         const obstacle = new Character2(ctx)
         defense.push(obstacle) 
@@ -64,6 +68,7 @@ function draw() {
         const obstacle = new Character2(ctx)
         defense.push(obstacle) 
       }
+      
     
       
       defense.forEach(element => {
@@ -71,7 +76,7 @@ function draw() {
         element.y += 5; 
       });
 
-    /*balls shooted*/ 
+    /*balls shoted*/ 
      
       ballsAvailables.forEach(element => 
       {element.draw();
@@ -172,7 +177,7 @@ function draw() {
   // }
 
   for (shooting of ballsAvailables) {
-    if (shooting.y == 5) {
+    if (shooting.y === 5) {
       // console.log('missed');
       missed +=1;
     }
@@ -193,14 +198,36 @@ function draw() {
   }
    /* levels */
 
-   if (scores === 5) {
+   if (scores >= 5) {
      goal.w = 180
-   } if (scores === 10) {
+     if (frames % 50 === 0) {
+      const obstacle = new Character2(ctx)
+      defense.push(obstacle) 
+    }
+   } 
+   
+   if (scores >= 10) {
     goal.w = 135
-  } if (scores === 15) {
+    if (frames % 150 === 0) {
+      const obstacle = new Character2(ctx)
+      defense.push(obstacle) 
+    }
+  } 
+  
+  if (scores >= 15) {
     goal.w = 90
-  } if (scores === 20) {
+    if (frames % 50 === 0) {
+      const obstacle = new Character2(ctx)
+      defense.push(obstacle) 
+    }
+  } 
+  
+  if (scores >= 20) {
     goal.w = 45
+    if (frames % 200 === 0) {
+      const obstacle = new Character2(ctx)
+      defense.push(obstacle) 
+    }
   }
 }
 
@@ -304,6 +331,9 @@ function gameOver() {
   ctx.restore();
   gameoverlogo.draw();
   gameover = false;
+  ball1.length = 0;
+  ball2.length = 0;
+  ballsAvailables.length = 0;
   defense.length = 0;
   $start.innerHTML = 'RESTART';
   console.log("LOOSER");
