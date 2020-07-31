@@ -1,4 +1,10 @@
-
+/* SHOOTING
+    -   \O                                     ,  .-.___
+  -     /\                                   O/  /xx\XXX\
+ -   __/\ `                                  /\  |xx|XXX|
+    `    \, ()                              ` << |xx|XXX|
+jgs^^^^^^^^`^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+*/ 
 
 let ShootingBall = class {
   constructor() {
@@ -32,7 +38,24 @@ let ShootingBall = class {
 
 
 
-  /*Goal*/
+  /*  GOAL
+  
+                                +---------------------------+    
+                              |\                          |\   
+                              | \    @ \_    /            | \
+                              |  \  /  \_o--<_/           | o\
+______________________________|___|/______________________|-|\|__________________
+         /                   /    /              _ o     / /|_                /
+        /                   /  _o'------------- / / \ ----/                  /
+       /                   /  /|_                /\    /                    /
+      /                   /_ /\ _______________ / / __/                    /
+     /                      / /                                           /
+    /                                                                    /
+   /                                                                    /
+  /                                                                    /
+ /____________________________________________________________________/
+
+  */
 
   let Goal = class {
     constructor() {
@@ -73,7 +96,21 @@ let ShootingBall = class {
         }
     }
   }
-  /*cone*/
+  /* CONE
+  
+             ^
+            /A\
+           //I\\
+          ///I\\\
+         ////I\\\\
+        /////I\\\\\
+       //////I\\\\\\
+      ///////I\\\\\\\
+     ////////I\\\\\\\\
+    /////////I\\\\\\\\\
+   //////////I\\\\\\\\\\
+
+  */
 
   let Cone = class {
     constructor() {
@@ -82,11 +119,10 @@ let ShootingBall = class {
         this.img = img;
         const imgRatio = img.naturalWidth/img.naturalHeight;
   
-        this.x = ((W /6) * (Math.floor(Math.random()* 5) + 1)) 
-        this.y = H / 2;
-        // this.y = ((H/20) * (Math.floor(Math.random()* 6) + 6)) ;
-        this.w = 48;
-        this.h = 30;
+        this.x = (W/12) * 10;
+        this.y = H - 50;
+        this.w = W/13;
+        this.h = this.w/imgRatio;
       }
       img.src = "images/cone.png";
     }
@@ -105,7 +141,22 @@ let ShootingBall = class {
     }
   }
 
-  /*ball*/
+  /* BALL
+        _...----.._
+     ,:':::::.     `>.
+   ,' |:::::;'     |:::.
+  /    `'::'       :::::\
+ /         _____     `::;\
+:         /:::::\      `  :
+| ,.     /::GC:::\        |
+|;:::.   `::::::;'        |
+::::::     `::;'      ,.  ;
+ \:::'              ,::::/
+  \                 \:::/
+   `.     ,:.        :;'
+     `-.::::::..  _.''
+        ```----'''
+  */
 
   let Ball = class {
     constructor() {
@@ -136,7 +187,33 @@ let ShootingBall = class {
 }
 }
 
-/*Game Over */
+/*Game Over
+┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼
+███▀▀▀██┼███▀▀▀███┼███▀█▄█▀███┼██▀▀▀
+██┼┼┼┼██┼██┼┼┼┼┼██┼██┼┼┼█┼┼┼██┼██┼┼┼
+██┼┼┼▄▄▄┼██▄▄▄▄▄██┼██┼┼┼▀┼┼┼██┼██▀▀▀
+██┼┼┼┼██┼██┼┼┼┼┼██┼██┼┼┼┼┼┼┼██┼██┼┼┼
+███▄▄▄██┼██┼┼┼┼┼██┼██┼┼┼┼┼┼┼██┼██▄▄▄
+┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼
+███▀▀▀███┼▀███┼┼██▀┼██▀▀▀┼██▀▀▀▀██▄┼
+██┼┼┼┼┼██┼┼┼██┼┼██┼┼██┼┼┼┼██┼┼┼┼┼██┼
+██┼┼┼┼┼██┼┼┼██┼┼██┼┼██▀▀▀┼██▄▄▄▄▄▀▀┼
+██┼┼┼┼┼██┼┼┼██┼┼█▀┼┼██┼┼┼┼██┼┼┼┼┼██┼
+███▄▄▄███┼┼┼─▀█▀┼┼─┼██▄▄▄┼██┼┼┼┼┼██▄
+┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼
+┼┼┼┼┼┼┼┼██┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼██┼┼┼┼┼┼┼┼┼
+┼┼┼┼┼┼████▄┼┼┼▄▄▄▄▄▄▄┼┼┼▄████┼┼┼┼┼┼┼
+┼┼┼┼┼┼┼┼┼▀▀█▄█████████▄█▀▀┼┼┼┼┼┼┼┼┼┼
+┼┼┼┼┼┼┼┼┼┼┼█████████████┼┼┼┼┼┼┼┼┼┼┼┼
+┼┼┼┼┼┼┼┼┼┼┼██▀▀▀███▀▀▀██┼┼┼┼┼┼┼┼┼┼┼┼
+┼┼┼┼┼┼┼┼┼┼┼██┼┼┼███┼┼┼██┼┼┼┼┼┼┼┼┼┼┼┼
+┼┼┼┼┼┼┼┼┼┼┼█████▀▄▀█████┼┼┼┼┼┼┼┼┼┼┼┼
+┼┼┼┼┼┼┼┼┼┼┼┼███████████┼┼┼┼┼┼┼┼┼┼┼┼┼
+┼┼┼┼┼┼┼┼▄▄▄██┼┼█▀█▀█┼┼██▄▄▄┼┼┼┼┼┼┼┼┼
+┼┼┼┼┼┼┼┼▀▀██┼┼┼┼┼┼┼┼┼┼┼██▀▀┼┼┼┼┼┼┼┼┼
+┼┼┼┼┼┼┼┼┼┼▀▀┼┼┼┼┼┼┼┼┼┼┼▀▀┼┼┼┼┼┼┼┼┼┼┼
+┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼
+*/
 
 let GameoverLogo = class {
   constructor() {
@@ -163,59 +240,4 @@ let GameoverLogo = class {
 
   }
 
-  /*WIN */
-
-let WinnerLogo = class {
-  constructor() {
-    const img = document.createElement('img');
-    img.onload = () => {
-      this.img = img;
-      const imgRatio = img.naturalWidth/img.naturalHeight;
-
-      this.w = 200;
-      this.h = 400;
-      this.x = (W - this.w) / 2
-      this.y = (H/2) - this.h / 2;
-
-    }
-    img.src = "images/cup.png";
-  }
-
   
-
-  draw() {
-      if (!this.img) return; 
-      ctx.drawImage(this.img, this.x, this.y, this.w, this.h);
-    }
-
-  }
-
-  /*Gol*/
-
-  let Gol= class {
-    constructor() {
-      const img = document.createElement('img');
-      img.onload = () => {
-        this.img = img;
-        const imgRatio = img.naturalWidth/img.naturalHeight;
-  
-        this.w = 300;
-        this.h = 300;
-        this.x = (W - this.w) / 2
-        this.y = (H/2) - this.h / 2;
-  
-      }
-      img.src = "images/logo2.png";
-    }
-  
-    
-  
-    draw() {
-        if (!this.img) return; 
-        ctx.drawImage(this.img, this.x, this.y, this.w, this.h);
-      
-      }
-  
-    }
-
-

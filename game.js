@@ -1,4 +1,9 @@
-/*variables*/
+/*                   _       __    __         
+ _   ______ ______(_)___ _/ /_  / /__  _____
+| | / / __ `/ ___/ / __ `/ __ \/ / _ \/ ___/
+| |/ / /_/ / /  / / /_/ / /_/ / /  __(__  ) 
+|___/\__,_/_/  /_/\__,_/_.___/_/\___/____/                                              
+*/
 
 var player;
 var ball1 = [];
@@ -6,18 +11,21 @@ var ball2 = [];
 var defense = [];
 var barrier;
 var goal;
+var cone;
 var shot;
 var gameover = false;
 var winner = false;
 
 let $start = document.getElementById("start-button");
-let $restart = document.querySelector('Restart');
+let $gol = document.getElementById("gol");
+let $noGol = document.getElementById("no-gol");
+
 
 var scores = 0;
 var missed = 0;
 var ballsAvailables = [];
 var chances = 3;
-var isGol = false;
+
 
 
 
@@ -25,15 +33,19 @@ const ctx = document.querySelector('canvas').getContext('2d');
 const W = ctx.canvas.width;
 const H = ctx.canvas.height;
 
-/*functions*/ 
+/*    ____  ____  ___ _       __
+   / __ \/ __ \/   | |     / /
+  / / / / /_/ / /| | | /| / / 
+ / /_/ / _, _/ ___ | |/ |/ /  
+/_____/_/ |_/_/  |_|__/|__/   
+                            */ 
 
-gameOver();
 
 
 function draw() {  
 
     const imgField = new Image();
-    imgField.src = "./images/test1.png"; 
+    imgField.src = "./images/field.png"; 
     ctx.drawImage(imgField, 0, 0, W, H);
     player.draw();
     goal.draw();
@@ -42,11 +54,18 @@ function draw() {
     drawGoal();
     printMissedBalls() 
     win();
+    cone.draw()
 
 
     
 
-    /*defenders*/ 
+    /*
+     __    ___                
+ ___/ /__ / _/__ ___  ___ ___ 
+/ _  / -_) _/ -_) _ \(_-</ -_)
+\_,_/\__/_/ \__/_//_/___/\__/ 
+                              
+    */ 
 
     if (frames % 100 === 0) {
         const obstacle = new Character2(ctx)
@@ -76,7 +95,13 @@ function draw() {
         element.y += 5; 
       });
 
-    /*balls shoted*/ 
+    /*
+       __        __ 
+  ___ / /  ___  / /_
+ (_-</ _ \/ _ \/ __/
+/___/_//_/\___/\__/ 
+                    
+    */ 
      
       ballsAvailables.forEach(element => 
       {element.draw();
@@ -85,7 +110,12 @@ function draw() {
 
 
 
-    /*goal*/
+    /*            __  
+  ___ ____  ___ _/ /__
+ / _ `/ _ \/ _ `/ (_-<
+ \_, /\___/\_,_/_/___/
+/___/                 
+*/
 
       function drawGoal (){
         goal.draw()
@@ -102,7 +132,12 @@ function draw() {
 
       }
     
-  /*balls*/
+  /*   
+   __        ____  
+  / /  ___ _/ / /__
+ / _ \/ _ `/ / (_-<
+/_.__/\_,_/_/_/___/
+                   */
      
     function addBall1(){
       while (ball1.length < 1){
@@ -129,14 +164,22 @@ function draw() {
       });
 
 
-    /* Collisions */
+    /* 
+  _____     _____     _             
+ / ___/__  / / (_)__ (_)__  ___  ___
+/ /__/ _ \/ / / (_-</ / _ \/ _ \(_-<
+\___/\___/_/_/_/___/_/\___/_//_/___/
+                                    
+    */
 
   for (obstacle of defense) {
       if (obstacle.hits(player)) {
         // console.log('crashed', defense);
         chances -= 1
+        defenderSound.play();
         player.x = (W/12) * 11;
-        player.y = H - 150;
+        player.y = H - 100;
+        player.dir = 'up';
       }
     }
 
@@ -146,7 +189,7 @@ function draw() {
       ballsAvailables.push(shooting);
       ball1.splice(0,1)
       player.dir = 'up';
-
+      shotSound2.play();
     }
   }
   for (newBall of ball2) {
@@ -155,8 +198,7 @@ function draw() {
       ballsAvailables.push(shooting);
       ball2.pop()
       player.dir = 'up';
-
- 
+      shotSound.play();
     }
   }
 
@@ -166,24 +208,31 @@ function draw() {
       // console.log('goooooal', goal);
       scores +=1;
       console.log(scores);
+      golSound.play();
       ballsAvailables.pop();
-      isGol=true;
+      $gol.style.visibility = "visible";
+      $noGol.style.visibility = "hidden";
     }
   }
 
-  // if (isGol === true) {
-  //   setInterval(goool.draw());
-  //   isGol = false;
-  // }
+
 
   for (shooting of ballsAvailables) {
     if (shooting.y === 5) {
-      // console.log('missed');
       missed +=1;
+      missSound.play();
+      $gol.style.visibility = "hidden";
+      $noGol.style.visibility = "visible";
     }
   }
 
-    /* Game Over */
+    /* 
+  ________   __  _______  ____ _   _________ 
+ / ___/ _ | /  |/  / __/ / __ \ | / / __/ _ \
+/ (_ / __ |/ /|_/ / _/  / /_/ / |/ / _// , _/
+\___/_/ |_/_/  /_/___/  \____/|___/___/_/|_| 
+                                             
+    */
 
   if (chances === 0) {
     gameover = true;
@@ -196,11 +245,17 @@ function draw() {
   if (scores === 25) {
     winner = true;
   }
-   /* levels */
+   /* 
+   __             __  
+  / /__ _  _____ / /__
+ / / -_) |/ / -_) (_-<
+/_/\__/|___/\__/_/___/
+                      
+   */
 
    if (scores >= 5) {
      goal.w = 180
-     if (frames % 50 === 0) {
+     if (frames % 100 === 0) {
       const obstacle = new Character2(ctx)
       defense.push(obstacle) 
     }
@@ -208,7 +263,7 @@ function draw() {
    
    if (scores >= 10) {
     goal.w = 135
-    if (frames % 150 === 0) {
+    if (frames % 200 === 0) {
       const obstacle = new Character2(ctx)
       defense.push(obstacle) 
     }
@@ -224,14 +279,23 @@ function draw() {
   
   if (scores >= 20) {
     goal.w = 45
-    if (frames % 200 === 0) {
+    if (frames % 150 === 0) {
       const obstacle = new Character2(ctx)
       defense.push(obstacle) 
     }
   }
 }
 
-  /* --------------------------------------------------------------- */
+  /* 
+  
+    _________    __  _________   ________  ___   ______________________  _   _______
+  / ____/   |  /  |/  / ____/  / ____/ / / / | / / ____/_  __/  _/ __ \/ | / / ___/
+ / / __/ /| | / /|_/ / __/    / /_  / / / /  |/ / /     / /  / // / / /  |/ /\__ \ 
+/ /_/ / ___ |/ /  / / /___   / __/ / /_/ / /|  / /___  / / _/ // /_/ / /|  /___/ / 
+\____/_/  |_/_/  /_/_____/  /_/    \____/_/ |_/\____/ /_/ /___/\____/_/ |_//____/  
+                                                                                   
+  
+  */
  
 
 var raf;
@@ -251,12 +315,10 @@ function animLoop() {
     if (!player) return; 
     shooting = new ShootingBall();
         switch (e.keyCode) {
-            case 37: player.moveLeft();  /*console.log('left',  player)*/; break;
-            case 39: player.moveRight(); /*console.log('right', player)*/; break;
-            case 40: player.moveDown(); /*console.log('back', player)*/; break;
-            case 38: player.moveUp(); /*console.log('up', player)*/; break;
-            // case 13: restart(); console.log("Game restarted"); break;
-
+            case 37: player.moveLeft(); break;
+            case 39: player.moveRight(); break;
+            case 40: player.moveDown(); break;
+            case 38: player.moveUp(); break;
         }
     }
 
@@ -271,8 +333,7 @@ function animLoop() {
     player = new Character(ctx);
     goal = new Goal();
     gameoverlogo = new GameoverLogo();
-    goool = new Gol();
-    winnerLogo = new WinnerLogo();
+    cone = new Cone(ctx)
     animLoop();
     draw();
     scores = 0; 
@@ -288,6 +349,8 @@ $start.onclick = function() {
     $start.innerHTML = 'RESTART';
     gameover = false;
     winner = false;
+    winneSound.pause();
+
     } if (gameover === true) {
       gameover = false;
       startGame();
@@ -331,14 +394,19 @@ function gameOver() {
   ctx.restore();
   gameoverlogo.draw();
   gameover = false;
+  gameOverSound.play();
   ball1.length = 0;
   ball2.length = 0;
   ballsAvailables.length = 0;
   defense.length = 0;
   $start.innerHTML = 'RESTART';
   console.log("LOOSER");
+  $gol.style.visibility = "hidden";
+  $noGol.style.visibility = "hidden";
   } 
 }
+gameOver();
+
 
 function win () {
   if(winner === true) {
@@ -348,7 +416,8 @@ function win () {
     ball2.length = 0;
     ballsAvailables.length = 0;
     defense.length = 0;
-    imgWin.src = "https://thumbs.dreamstime.com/z/winner-award-badge-isolated-white-background-winner-badge-100765562.jpg"; 
+    winneSound.play();
+    imgWin.src = "images/backgroundWinner.png"; 
     ctx.drawImage(imgWin, 0, 0, W, H);
   }
 }

@@ -26,16 +26,34 @@ body {
     list-style: none;
     border: dashed white;
     align-self: flex-end;
-    align-self: flex-end;
     margin-right: 40px;
     color: #57C4DE;
     font-size: 29px;
     padding: 15px 50px 15px 8px;
+
   }
   
+  #gol {
+    align-self: flex-end;
+    margin-right: 40px;
+    font-size: 29px;
+    margin-bottom: 0;
+    margin-top: 2px;  
+  }
+
+  #no-gol {
+    align-self: flex-end;
+    margin-right: 40px;
+    margin-top: 0;
+    font-size: 29px;  
+  }
+
   .logo-img {
     width: 200px;
     margin-top: 130px;
+    width: 30%;
+    margin: 0 auto;
+    display: block;
   }
   
   body button {
@@ -45,7 +63,6 @@ body {
     background-color: transparent;
     color: #57C4DE;
     padding: 15px 50px;
-    /* border:green solid; */
     background-color: #1A1010;
     border-radius: 50px;
     border-color: black;
@@ -62,12 +79,18 @@ body {
   }
 
   #game-board canvas {
+ 
+    width: 85%;
+    margin: 0 auto;
+    display: block;
     position:absolute; 
     background-color: transparent;
-    border: green solid;
+    border: darkslategray solid;
     border-radius: 10px;
-    /* background-image: url(./images/test1.png);
+    background-image: url(./images/instructions.png);
+    background-color: #3c403b;
     background-repeat: no-repeat;
-    background-size: cover;
-    object-fit:contain; */
+    background-size: 100%;
+    background-position: center;
+    object-fit:contain;
   }

@@ -1,3 +1,21 @@
+/*
+
+         _
+        |.|
+        ]^[
+      ,-|||~\
+     {<|||||>}
+      \|||||/
+      {/   \}
+      /__9__\
+      | / \ |
+      (<   >)
+     _|)   (|_
+,.,.(  |.,.|  ).,.,.
+
+*/
+
+
 let Character = class {
 
     constructor(ctx) {
@@ -14,7 +32,7 @@ let Character = class {
         this.img = img;
         const imgRatio = img.naturalWidth/img.naturalHeight;
         this.x = (this.ctx.canvas.width/12) * 11;
-        this.y = this.ctx.canvas.height - 150;
+        this.y = this.ctx.canvas.height - 100;
         this.w = this.ctx.canvas.width/13;
         this.h = this.w/imgRatio;
         this.sWidth = spriteWidth/cols; 
@@ -23,12 +41,11 @@ let Character = class {
         this.srcY = 0;
         this.curFrame = 4;
         this.frameCount = 3;
-        this.dir = 'left';
+        this.dir = 'up';
       }
       img.src = "images/miniplayer1.png";
     }
                       
-    // ctx.style
     updateFrame(){
       var trackUp = 0;
       var trackRight = 1; 
@@ -40,23 +57,19 @@ let Character = class {
       }
       
       this.srcX = this.curFrame * this.sWidth; 
-      // ctx.clearRect(this.x,this.y,this.sWidth,this.sHeight);	
   
-    if(this.dir === 'left'){ // && this.x >= (this.ctx.canvas.width/11)){ 
+    if(this.dir === 'left'){ 
         this.srcY = trackLeft * this.sHeight; 
-        //this.x -= (canvasWidth/12);
       }
-      if(this.dir === 'right'){ // && this.x <= this.ctx.canvas.width - (this.ctx.canvas.width/6) - (this.ctx.canvas.width/12)){ 
+      if(this.dir === 'right'){ 
         this.srcY = trackRight * this.sHeight; 
-        //this.x+=(canvasWidth/12); 
       }
-      if(this.dir === 'up'){ // && this.y > 0 ){
+      if(this.dir === 'up'){ 
         this.srcY = trackUp*this.sHeight; 
-        //this.y-=30; 
-      }
-      if(this.dir === 'down'){ // && this.y <= this.ctx.canvas.height - 40){ 
+
+    }
+      if(this.dir === 'down'){ 
         this.srcY = trackDown * this.sHeight; 
-        //this.y+=30; 
       }
               
     }
@@ -70,7 +83,7 @@ let Character = class {
   
     moveLeft(){
       this.dir = 'left'
-      if(this.x >= (this.ctx.canvas.width/11)){
+      if(this.x >= (this.ctx.canvas.width/11) && this.y <= this.ctx.canvas.height - 130){
       this.x -= (this.ctx.canvas.width/12);
       }
     }
@@ -91,7 +104,7 @@ let Character = class {
   
     moveDown(){
       this.dir = 'down'
-      if (this.y <= this.ctx.canvas.height - 40){
+      if (this.y <= this.ctx.canvas.height - 140){
       this.y += 30;
       }
     }
@@ -99,7 +112,21 @@ let Character = class {
   };
   
 
+/* DEFENSE
 
+           _          _          _          _          _        
+          |.|        |.|        |.|        |.|        |.|      
+          ]^[        ]^[        ]^[        ]^[        ]^[     
+        /~`-'~\    /~`-'~\    /~`-'~\    /~`-'~\    /~`-'~\    
+       {<|%  |>}  {<|%  |>}  {<|%  |>}  {<|%  |>}  {<|%  |>}   
+        \|___|/    \|___|/    \|___|/    \|___|/    \|___|/    
+       /\    \      /   \      /   \      /   \      /   \     
+       |/>/|__\    /__|__\    /__|__\    /__|__\    /__|__\    
+      _|)   \ |    | / \ |    | / \ |    | / \ |    | / \ |    
+     (_,|    \)    (/   \)    (/   \)    (/   \)    (/   \)    
+     / \     (|_  _|)   (|_  _|)   (|_  _|)   (|_  _|)   (|_  
+  .,.\_/,...,|,_)(_,|,.,|,_)(_,|,.,|,_)(_,|,.,|,_)(_,|,.,|,_)
+*/
   let Character2 = class {
 
     constructor(ctx) {
@@ -130,7 +157,6 @@ let Character = class {
       img.src = "images/player2mini.png";
     }
                       
-    // ctx.style
     updateFrame(){
       var trackUp = 0;
       var trackRight = 1; 
@@ -142,23 +168,19 @@ let Character = class {
       }
       
       this.srcX = this.curFrame * this.sWidth; 
-      // ctx.clearRect(this.x,this.y,this.sWidth,this.sHeight);	
   
-    if(this.dir === 'left'){ // && this.x >= (this.ctx.canvas.width/11)){ 
+    if(this.dir === 'left'){ 
         this.srcY = trackLeft * this.sHeight; 
-        //this.x -= (canvasWidth/12);
       }
-      if(this.dir === 'right'){ // && this.x <= this.ctx.canvas.width - (this.ctx.canvas.width/6) - (this.ctx.canvas.width/12)){ 
+      if(this.dir === 'right'){ 
         this.srcY = trackRight * this.sHeight; 
-        //this.x+=(canvasWidth/12); 
       }
-      if(this.dir === 'up'){ // && this.y > 0 ){
+      if(this.dir === 'up'){ 
         this.srcY = trackUp*this.sHeight; 
-        //this.y-=30; 
-      }
-      if(this.dir === 'down'){ // && this.y <= this.ctx.canvas.height - 40){ 
+
+    }
+      if(this.dir === 'down'){ 
         this.srcY = trackDown * this.sHeight; 
-        //this.y+=30; 
       }
               
     }
